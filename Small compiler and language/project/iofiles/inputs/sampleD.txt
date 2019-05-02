@@ -1,0 +1,86 @@
+/^
+This is a demonstration program I have written.
+
+Code is commented to detail what is happening.
+^/
+
+/^Functions can be of any variable type allowed by the language. Here is a simple XOR function^/
+$boolean xor($boolean b1, $boolean b2){
+    if(b2){
+        Return !b1;
+    }
+    Return b1;
+}
+
+/^Functions are visible to themselves in scope, which allows recursive function calls.
+Here is a simple factorial function utilising recursive function calls^/
+$int factorial($int n){
+    if(n == 0){
+        Return 1;
+    }
+    else{
+        Return n * factorial(n - 1);
+    }
+}
+
+$int printFibonacci($int n){
+
+    /^Functions can also be nested. Nested functions can only be accessed from within the scope they
+    are defined within. For example, the "factorial()" function could not call the "getFib()" function.^/
+    $int getFib($int i){
+        if(i <= 1){
+            Return 1;
+        }
+        /^Return values are checked to ensure they match the signature return type^/
+        Return getFib(i-1) + getFib(i-2);
+    }
+
+    $int i = 0;
+    while(i < n){
+        print(getFib(i));
+        i = i + 1;
+    }
+}
+
+
+/^Main program code exists outside of a function^/
+$int x = 4;
+print("Starting value:");
+print(x);
+
+x = factorial(x);
+print("Value becomes factorial of value. New value:");
+print(x);
+
+/^Function argument variable names can be the same as global variable names without scoping issues.
+This can be seen here with the global definition of b1 and b2 not interfering with the equivalent
+boolean values in the xor() function^/
+
+$boolean b1 = x >= 120;
+$boolean b2 = x >= 5040;
+
+/^Function calls represent a type. Because of this they may be used in conditional statements^/
+if(xor(b1,b2)){
+    print("Value exists between 120 and 5040!");
+}
+else{
+    print("Value does not exist between the expected parameters.");
+}
+
+
+print("Now applying modulo 10 to value and printing the fibonacci sequence where n = the value.");
+printFibonacci(x % 10);
+
+/^Simple demonstration to show how the language can manage large compound expressions and conditions^/
+$int z = 5;
+$float fl;
+if(!factorial(z) > 10^z && (b1 == xor(b1, b2)) || b2){
+    fl = factorial(10 - z%4) / z;
+}
+print(fl);
+
+/^As a small but important characteristic of my compiler, float values are allowed to house integer values.^/
+$int testInt = 1;
+$float testFloat = 2;
+testFloat = testInt;
+/^This is NOT reversible. For example, testInt could not be assigned testFloat value.^/
